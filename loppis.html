@@ -6,6 +6,12 @@
   <title>Bakluckeloppis på Broddebo Dansbana</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <script>
+    // Runs before first paint — suppress nav flash when restoring scroll position
+    if (sessionStorage.getItem('scrollRatio') !== null) {
+      document.documentElement.classList.add('nav-preload');
+    }
+  </script>
 </head>
 <body>
 
@@ -130,6 +136,32 @@
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Save scroll ratio before navigating via any nav button
+    document.querySelectorAll('.nav-btn, .side-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ratio = window.scrollY / document.documentElement.scrollHeight;
+        sessionStorage.setItem('scrollRatio', ratio);
+      });
+    });
+
+    // Restore scroll position on load
+    const savedRatio = sessionStorage.getItem('scrollRatio');
+    if (savedRatio !== null) {
+      sessionStorage.removeItem('scrollRatio');
+      const targetY = parseFloat(savedRatio) * document.documentElement.scrollHeight;
+      if (targetY > hero.offsetHeight) {
+        topNav.classList.add('hidden');
+        sideNav.classList.add('visible');
+      }
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, targetY);
+        document.documentElement.style.scrollBehavior = '';
+        // Re-enable transitions now that we're in the right position
+        document.documentElement.classList.remove('nav-preload');
+      });
+    }
   </script>
 
 </body>

@@ -22,6 +22,16 @@ body {
 }
 
 /* ── TOP NAV ──────────────────────────────────────────── */
+/* Applied before first paint to prevent flash on scroll restore */
+html.nav-preload .site-nav {
+  transition: none !important;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+}
+html.nav-preload .side-nav {
+  transition: none !important;
+}
 .site-nav {
   position: fixed;
   top: 0;
