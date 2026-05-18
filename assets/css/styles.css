@@ -21,6 +21,106 @@ body {
   overflow-x: hidden;
 }
 
+/* ── TOP NAV ──────────────────────────────────────────── */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  padding: .9rem 1.5rem;
+  background: rgba(20, 40, 15, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(232, 216, 154, 0.2);
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.site-nav.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+}
+
+.nav-btn {
+  font-family: 'Lora', serif;
+  font-size: .9rem;
+  letter-spacing: .12em;
+  text-decoration: none;
+  padding: .5rem 1.6rem;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 216, 154, 0.4);
+  color: var(--straw);
+  background: transparent;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.nav-btn:hover {
+  background: rgba(232, 216, 154, 0.15);
+  border-color: var(--straw);
+}
+.nav-btn.active {
+  background: var(--straw);
+  color: var(--green-deep);
+  border-color: var(--straw);
+  font-weight: 500;
+}
+
+/* ── SIDE NAV ─────────────────────────────────────────── */
+.side-nav {
+  position: fixed;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(20px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.side-nav.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+.side-btn {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: 'Lora', serif;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-decoration: none;
+  padding: 1rem .55rem;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 216, 154, 0.4);
+  color: var(--straw);
+  background: rgba(20, 40, 15, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  transition: background .25s, color .25s, border-color .25s, transform .2s;
+}
+.side-btn:hover {
+  background: rgba(232, 216, 154, 0.15);
+  border-color: var(--straw);
+  transform: translateX(-3px);
+}
+.side-btn.active {
+  background: var(--straw);
+  color: var(--green-deep);
+  border-color: var(--straw);
+}
+
+@media (max-width: 600px) {
+  .side-nav { display: none; }
+}
+
 /* ── HERO ─────────────────────────────────────────────── */
 .hero {
   position: relative;
