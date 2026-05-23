@@ -15,6 +15,14 @@
 </head>
 <body>
 
+  <!-- ── POPUP BANNER ──────────────────────────────────────── -->
+  <div class="banner-overlay" id="pageBanner" role="dialog" aria-modal="true" aria-label="Välkomstbanner">
+    <div class="banner-box">
+      <img src="assets/images/loppisbanner.png" alt="Bakluckeloppis på Broddebo Dansbana" />
+      <button class="banner-close" id="bannerClose" aria-label="Stäng banner">&#x2715;</button>
+    </div>
+  </div>
+
   <!-- ── NAV ───────────────────────────────────────────────── -->
   <nav class="site-nav">
     <a href="index.html" class="nav-btn">Midsommar</a>
@@ -62,7 +70,8 @@
     <h2 class="section-title">En dag att fynd-shoppa</h2>
     <div class="ornament">✦</div>
     <p class="section-body">
-      [Här kan du skriva en välkomnande inledning om loppisen, stämningen och vad besökarna kan förvänta sig.]
+      Årets bakluckeloppis på Broddebo Dansbana! Kom och fynda, sälj eller bara njut av en trevlig stund tillsammans.
+      Om du vill sälja något, boka plats via SMS på 070-242-1252. Det kostar 100kr om du vill sälja (50kr för medlemmar i 35:ans byalag). Gratis inträde om du vill komma och köpa/titta!
     </p>
   </section>
 
@@ -71,28 +80,30 @@
     <div class="card">
       <div class="card-icon">📅</div>
       <div class="card-title">Datum</div>
-      <div class="card-text">[Dag]<br><strong>[Datum här]</strong></div>
+      <div class="card-text">Söndag<br><strong>9 Augusti</strong></div>
     </div>
     <div class="card">
       <div class="card-icon">🕔</div>
       <div class="card-title">Tid</div>
-      <div class="card-text">Dörrarna öppnar<br><strong>[Tid här]</strong></div>
+      <div class="card-text">Vi sätter igång<br><strong>12:00</strong></div>
     </div>
     <div class="card">
       <div class="card-icon">📍</div>
       <div class="card-title">Plats</div>
       <div class="card-text">Broddebo Dansbana<br><a href="https://maps.app.goo.gl/gcDopPeKs9dPUPyn6" target="_blank" rel="noopener noreferrer" class="map-link">📍 Visa på karta</a></div>
     </div>
-    <div class="card">
+    <div class="card card--info">
+      <button class="card-info-btn" aria-label="Info om försäljning">ℹ</button>
+      <span class="card-info-tip" role="tooltip">Boka plats via SMS till 070-242-1252. Det kostar 100kr per plats. Eget bord medtages</span>
       <div class="card-icon">🛍️</div>
       <div class="card-title">Försäljning</div>
-      <div class="card-text">Bakluckeloppis<br><strong>[Info här]</strong></div>
+      <div class="card-text">Bakluckeloppis<br><strong>Boka plats om du vill sälja (ta med eget bord)</strong></div>
     </div>
   </div>
 
   <!-- ── PHOTO STRIP ────────────────────────────────────────── -->
   <div class="photo-strip">
-    <img src="assets/images/broddebo.jpg" alt="Broddebo Dansbana en solig sommardag" />
+    <img src="assets/images/loppis1.jpg" alt="Broddebo Dansbana en solig sommardag" />
     <span class="photo-caption">Broddebo Dansbana</span>
   </div>
 
@@ -102,21 +113,20 @@
     <h2 class="section-title">Så här ser dagen ut</h2>
     <div class="ornament" style="color:#7dba6f">✦</div>
     <p class="section-body">
-      [Kort beskrivning av dagens upplägg.]
+      Välkommen att sälja och fynda! Det kommer även att finnas korvförsäljning!
     </p>
 
     <ul class="program-list">
-      <li><span class="prog-time">[Tid]</span> Välkomst &amp; öppning</li>
-      <li><span class="prog-time">[Tid]</span> Försäljning startar</li>
-      <li><span class="prog-time">[Tid]</span> [Aktivitet]</li>
-      <li><span class="prog-time">[Tid]</span> Avslutning</li>
+      <li><span class="prog-time">11:50</span> Välkomst &amp; öppning</li>
+      <li><span class="prog-time">12:00</span> Försäljning startar</li>
+      <li><span class="prog-time">14:00</span> Avslutning</li>
     </ul>
   </section>
 
   <!-- ── FOOTER ─────────────────────────────────────────────── -->
   <footer>
     <p>✿ &nbsp;<strong>Broddebo Dansbana</strong>&nbsp; — Bakluckeloppis &nbsp;✿</p>
-    <p style="margin-top:.5rem; opacity:.7;">[Kontaktuppgifter / arrangör]</p>
+    <p style="margin-top:.5rem; opacity:.7;">[070-242-1252]</p>
   </footer>
 
   <script>
@@ -162,6 +172,26 @@
         document.documentElement.classList.remove('nav-preload');
       });
     }
+
+    // ── POPUP BANNER ──────────────────────────────────────────
+    document.getElementById('bannerClose').addEventListener('click', function () {
+      document.getElementById('pageBanner').classList.add('hidden');
+    });
+    // Also close when clicking the dark backdrop outside the image
+    document.getElementById('pageBanner').addEventListener('click', function (e) {
+      if (e.target === this) this.classList.add('hidden');
+    });
+
+    // ── CARD INFO TOOLTIP (click/tap toggle for touch devices) ─
+    document.querySelectorAll('.card-info-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+      });
+    });
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.card-info-btn.active').forEach(btn => btn.classList.remove('active'));
+    });
   </script>
 
 </body>

@@ -15,6 +15,14 @@
 </head>
 <body>
 
+  <!-- ── POPUP BANNER ──────────────────────────────────────── -->
+  <div class="banner-overlay" id="pageBanner" role="dialog" aria-modal="true" aria-label="Välkomstbanner">
+    <div class="banner-box">
+      <img src="assets/images/sommarbanner.jpg" alt="Midsommar på Broddebo Dansbana" />
+      <button class="banner-close" id="bannerClose" aria-label="Stäng banner">&#x2715;</button>
+    </div>
+  </div>
+
   <!-- ── NAV ───────────────────────────────────────────────── -->
   <nav class="site-nav">
     <a href="index.html" class="nav-btn active">Midsommar</a>
@@ -94,7 +102,7 @@
 
   <!-- ── PHOTO STRIP ────────────────────────────────────────── -->
   <div class="photo-strip">
-    <img src="assets/images/broddebo.jpg" alt="Broddebo Dansbana en solig sommardag" />
+    <img src="assets/images/sommar2.jpg" alt="Broddebo Dansbana en solig sommardag" />
     <span class="photo-caption">Broddebo Dansbana</span>
   </div>
 
@@ -108,12 +116,20 @@
       Sedan har vi lotteri där du kan vinna trevliga priser, för såväl stora som små.
       Ta med egen fikakorg, fikafilt, och är du solskygg så ta med dig ett parasoll då det inte finns mycket naturlig skugga.
     </p>
+    <p class="section-body">Obs. Tiderna är ungefärliga</p>
 
     <ul class="program-list">
-      <li><span class="prog-time">13:30</span> Kom och klä stången</li>
-      <li><span class="prog-time">14:00</span> Midsommarstångresning</li>
-      <li><span class="prog-time">14:10</span> Dans &amp; levande musik</li>
-      <li><span class="prog-time">14:30</span> Lotteri</li>
+      <li><span class="prog-time">13:45</span> Kom och klä stången</li>
+      <li><span class="prog-time">14:30</span> Midsommarstångresning</li>
+      <li><span class="prog-time">14:40</span> Dans &amp; levande musik</li>
+      <li>
+        <span class="prog-time">15:00</span>
+        <span class="info-wrap">
+          Lotteri
+          <button class="info-btn" aria-label="Info om lotteriet">ℹ</button>
+          <span class="info-tip" role="tooltip">10kr per lott. Betala kontant eller med swish!</span>
+        </span>
+      </li>
     </ul>
 
   </section>
@@ -122,7 +138,7 @@
   <footer>
     <p>✿ &nbsp;<strong>Broddebo Dansbana</strong>&nbsp; — Midsommar 2026 &nbsp;✿</p>
     <p style="margin-top:.5rem; opacity:.7;">[35:ans byalag]</p>
-    <p style="margin-top:.5rem; opacity:.7;">[-kontaktinformation-]</p>
+    <p style="margin-top:.5rem; opacity:.7;">[070-242-1252]</p>
   </footer>
 
   <script>
@@ -168,6 +184,27 @@
         document.documentElement.classList.remove('nav-preload');
       });
     }
+
+    // ── INFO TOOLTIP (click/tap toggle for touch devices) ─────
+    document.querySelectorAll('.info-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+      });
+    });
+    // Close any open tooltip when tapping elsewhere
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.info-btn.active').forEach(btn => btn.classList.remove('active'));
+    });
+
+    // ── POPUP BANNER ──────────────────────────────────────────
+    document.getElementById('bannerClose').addEventListener('click', function () {
+      document.getElementById('pageBanner').classList.add('hidden');
+    });
+    // Also close when clicking the dark backdrop outside the image
+    document.getElementById('pageBanner').addEventListener('click', function (e) {
+      if (e.target === this) this.classList.add('hidden');
+    });
   </script>
 
 </body>
